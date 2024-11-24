@@ -7,13 +7,7 @@ import fastifyWs from "@fastify/websocket";
 // Load environment variables from .env file
 dotenv.config();
 
-const { ELEVENLABS_AGENT_ID } = process.env;
-
-// Check for the required ElevenLabs Agent ID
-if (!ELEVENLABS_AGENT_ID) {
-  console.error("Missing ELEVENLABS_AGENT_ID in environment variables");
-  process.exit(1);
-}
+let ELEVENLABS_AGENT_ID;
 
 // Initialize Fastify server
 const fastify = Fastify();
@@ -29,6 +23,8 @@ fastify.get("/", async (_, reply) => {
 
 // Route to handle incoming calls from Twilio
 fastify.all("/incoming-call-eleven", async (request, reply) => {
+  ELEVENLABS_AGENT_ID = request.body.agent_id || request.query.agent_id;
+
   // Generate TwiML response to connect the call to a WebSocket stream
   const twimlResponse = `<?xml version="1.0" encoding="UTF-8"?>
     <Response>

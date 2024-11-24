@@ -9,8 +9,7 @@
     "@fastify/websocket": "^11.0.1",
     "dotenv": "^16.4.5",
     "fastify": "^5.1.0",
-    "twilio": "^5.3.6",
-    "ws": "^8.18.0"
+    "twilio": "^5.3.6"
   },
   "scripts": {
     "start": "node index.js"
